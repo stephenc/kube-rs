@@ -89,6 +89,20 @@ where
         self.client.request_status::<ObjectList<K>>(req).await
     }
 
+/*
+    // TODO: K impls Into<serde_yaml::Value> ?
+    // TODO: force bool?
+    pub async fn apply(&self, name: &str, patch: Vec<u8>) -> Result<K> {
+        // TODO: patch params Apply + default field manager (executable name)
+        let req = self.api.patch(name, &pp, patch)?;
+        self.client.request::<K>(req).await
+    }
+    pub async fn diff(&self, name: &str, patch: Vec<u8>) -> Result<K> {
+        // TODO: as above but with dry_run: true
+        let req = self.api.patch(name, &pp, patch)?;
+        self.client.request::<K>(req).await
+    }
+*/
     pub async fn patch(&self, name: &str, pp: &PatchParams, patch: Vec<u8>) -> Result<K> {
         let req = self.api.patch(name, &pp, patch)?;
         self.client.request::<K>(req).await
